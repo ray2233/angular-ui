@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="http://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">
+<title>Responsive Image Carousel with Angular.js</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+
+
+.carousel-inner img { margin: 0 auto; }
+.carousel{margin-top: 170px;}
+</style>
+</head>
+
+<body>
+
+ 
+<div ng-app="carousel">
+  <div class="container" ng-controller="folderCtrl"> 
+    <!-- Carousel
+        ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel"> 
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" ng-repeat="img in images" class="{active : (img === 0)}" data-slide-to="{{img}}"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div ng-class="{item: true, active : (img === 0)}" ng-repeat="img in images"> <img ng-src="{{uri}}/{{w}}/{{h}}/{{currentFolder}}/{{img}}">
+          <div class="container">
+            <div class="carousel-caption"> </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> </div>
+    <!-- /.carousel --> 
+    
+    <!-- Fixed navbar -->
+    
+  </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+<script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js'></script> 
+<script>
+var app = angular.module('carousel', []);
+app.controller('folderCtrl', function ($scope, $http) {
+  $scope.w = window.innerWidth;
+  $scope.h = window.innerHeight-20;
+  $scope.uri = "http://angularjs-ui.atwebpages.com";
+  $scope.folders = [
+    'home'
+  ];
+  $scope.images = [0, 1, 2, 3];
+
+  $scope.currentFolder = $scope.folders[0];
+  $scope.selectFolder = function (folder) {
+    $scope.currentFolder = folder;
+  };
+  $scope.activeFolder = function (folder) {
+    return (folder === $scope.currentFolder) ? 'active' : '';
+  };
+});
+</script>
+
+</body>
+</html>
